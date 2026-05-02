@@ -3,10 +3,11 @@ Integrantes: Dylan Dávila - 506231047 y Julieta Lozano - 506241123
 
 Para poder ejecutar el codigo debera seguir los siguientes pasos.
 
-Primero ejecute el comando: Python -m venv env
-Luego ejecute el comando:.\env\Scripts\activate
-Y finalmente ejecute el comando: pip install -r .\requirements.txt
-Al ejecutarse deberá verse así cada punto del ejercicio:
+- Python -m venv env
+- .\env\Scripts\activate
+- pip install -r .\requirements.txt
+- pip install langchain langchain-community langchain-text-splitters langchain-google-genai langchain-chroma chromadb python-dotenv unstructured pypdf
+Y finalmente ejecute el rag.py y el taller.py.
 
 ## Descripción
 
@@ -23,6 +24,36 @@ El asistente funciona de manera local, lo que permite mantener la privacidad de 
 El asistente desarrollado en este proyecto es un **Tutor Académico Personalizado**.  
 
 Está basado en material académico como guías de estudio, documentos o libros de una asignatura. Su función es ayudar a los estudiantes a comprender los temas del curso, responder preguntas y explicar conceptos utilizando la información disponible en los documentos.
+
+Su objetivo es:
+
+Explicar conceptos de bases de datos
+Responder preguntas sobre SQL
+Analizar consultas SQL
+Limitar respuestas al dominio definido
+
+---
+# Flujo del sistema RAG
+
+El sistema implementa las siguientes etapas:
+
+1. Carga de documentos: Se carga un documento pdf desde archivos locales.
+
+2. Fragmentación (Chunking): Los documentos se dividen en fragmentos para facilitar su procesamiento.
+
+3. Vectorización (Embeddings): Cada fragmento se convierte en un vector numérico utilizando el modelo: gemini-embedding-001
+
+4. Base de datos vectorial: Los vectores se almacenan en una base de datos local: ChromaDB.
+Esto permite realizar búsquedas semánticas.
+
+5. Recuperación de información (Retriever): Cuando el usuario realiza una pregunta:
+
+- Se convierte en embedding
+- Se buscan los fragmentos más similares
+- Se recupera el contexto relevante
+
+6. Generación de respuesta (LLM): El modelo genera la respuesta utilizando únicamente el contexto recuperado.
+
 
 ---
 
@@ -60,5 +91,4 @@ El sistema funciona de la siguiente forma:
 ---
 
 ## Autor
-
 Proyecto desarrollado como parte de la asignatura de **Desarrollo de Aplicaciones con Inteligencia Artificial**.
